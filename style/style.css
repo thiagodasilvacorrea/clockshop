@@ -149,3 +149,8 @@ ul.shopping-cart .cart-itm .remove-itm a{
 	margin: 10px 1px;
 	float: right;
 }
+#menu ul {
+	padding:0px;
+	margin:0px;
+	background-color:#EDEDED;
+	list-style:none;

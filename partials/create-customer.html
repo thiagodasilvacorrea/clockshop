@@ -1,0 +1,36 @@
+
+        <form name ="createForme" >
+            <label for="nome">Nome</label><br>
+            <input type="text" name="name" ng-model="customer.customerName" required/>
+            <span ng-show="createForme.name.$dirty && createForme.name.$invalid">Nome é requerido</span>
+            <br>
+            <label for="email"> Endereço de email </label>
+            <input name="email" ng-model="customer.email" type= "email"  required/>
+            <span ng-show="createForme.email.$dirty && createForme.email.$invalid && !createForme.email.$error.email">Email é requerido</span>
+            <span ng-show="createForme.email.$error.email" class="help-inline">Endereço de email não é valido</span>
+             <br>
+        
+            <label>Endereço </label>
+            <input ng-model="customer.address" type= "text" required/>
+            <span ng-show="createForme.address.$dirty && createForme.address.$invalid && !createForme.address.$error.address">Endereço é requerido</span>
+        
+             <br>
+            <label>Cidade</label>
+            <input ng-model="customer.city" type= "text" required/>
+            <span ng-show="createForme.city.$dirty && createForme.city.$invalid && !createForme.city.$error.">Cidade é requerido</span>
+             <br>
+              
+            <label>Estado</label>
+            <input ng-model="customer.state" type= "text" required/>
+            <span ng-show="createForme.state.$dirty && createForme.state.$invalid && !createForme.state.$error.state">Estado é requerido</span>
+             <br>
+            <label>CEP</label>
+            <input ng-model="customer.postalCode" type= "text" required/>
+            <span ng-show="createForme.postalCode.$dirty && createForme.postalCode.$invalid && !createForme.postalCode.$error.postalCode">CEP é requerido</span>
+             <br
+             
+                     <button ng-click="saveCustomer(customer);" 
+                ng-disabled="isClean() || createForme.$invalid"
+                class="btn btn-primary">{{buttonText}}</button>                   
+        </form>
+   

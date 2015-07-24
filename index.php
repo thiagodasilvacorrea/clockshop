@@ -5,13 +5,22 @@ include_once("config.php");
 $current_url = urlencode($url="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
 ?>
 <!DOCTYPE html>
-<html>
+<html ng-app=crudApp>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Clock Shop - Relógios Masculinos e Femininos - DM104 Inatel</title>
 <link href="style/style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+
+
+<nav id="menu">
+	<ul>
+		<li><a href="/salvar">Salvar</a></li>
+		<li><a href="../partials/customers.html">editar</a></li>
+		
+	</ul>
+</nav>
 
 <h1 align="center">Relógios Masculinos e Femininos</h1>
 
@@ -70,7 +79,7 @@ $products_item .= <<<EOT
 	<li class="product">
 	<form method="post" action="cart_update.php">
 	<div class="product-content"><h3>{$obj->product_name}</h3>
-	<div class="product-thumb"><img src="images/{$obj->product_img_name}"></div>
+	<div class="product-thumb"><img src="/images/{$obj->product_img_name}"></div>
 	<div class="product-desc">{$obj->product_desc}</div>
 	<div class="product-info">
 	Preço {$currency}{$obj->price} 
@@ -105,5 +114,11 @@ echo $products_item;
 }
 ?>    
 <!-- Fim da Lista de Produtos -->
+
+
+
+ <script type="text/javascript" src="js/angular.min.js"></script>
+  <script type="text/javascript" src="js/angular-route.min.js"></script>
+<script type="text/javascript"   src="app/app.js"></script>         
 </body>
 </html>
