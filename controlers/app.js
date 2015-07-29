@@ -1,11 +1,14 @@
-angular.module("App", ['ngRoute']).
+angular.module('App', []).
   config(['$routeProvider', function($routeProvider) {
   $routeProvider.
-  
+      when('/', {templateUrl: 'templates/home.html'}).
       when('/adicionar_usuario', {templateUrl: 'templates/adicionar_usuario.html', controller: AddCtrl}).
       when('/editar/:id', {templateUrl: 'templates/editar.html', controller: EditCtrl}).
       otherwise({redirectTo: '/'});
 }]);
+
+
+
 
 
 
@@ -22,7 +25,7 @@ function AddCtrl($scope, $http, $location) {
     });
 
     $scope.reset = function() {
-      $scope.user = angular.copy($scope.master);
+      $scope.usuario = angular.copy($scope.master);
     };
 
     $scope.reset();

@@ -1,12 +1,16 @@
 <?php
-include 'dbConfig.php';
+require_once("./config.php");
 require 'Slim/Slim.php';
 \Slim\Slim::registerAutoloader();
 
 $slim_app = new \Slim\Slim();
+
 $slim_app->get('/usuario/:id','pegar_usaurio');
+
 $app->post('/adicionar_usuario', 'adicionar_usuario');
+
 $app->put('/usuario/:id', 'atualizar_usuario');
+
 $app->delete('/usuario/:id', 'deletar_usaurio');
 
 
@@ -52,7 +56,7 @@ function adicionar_usuario()
 		$stmt->bindParam(":password",$usuario->password);
 		$usuario->customerId = $db->lastInsertId();
 		$db = null;
-		echo json_encode($r);
+		echo json_encode($usuario);
 	} catch(PDOException $e) {
 		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
 	}
@@ -81,7 +85,7 @@ function atualizar_usuario ($id)
 		$stmt->bindParam(":password",$usuario->password);
 	    $stmt->bindParam(":customerId",$id);
 		$db = null;
-		echo json_encode($r);
+		echo json_encode($usuario);
 	} catch(PDOException $e) {
 		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
 	}
@@ -97,7 +101,7 @@ function deletar_usaurio ($id)
 		$stmt = $db->query($query);  
 		$r= $stmt->fetchAll(PDO::FETCH_OBJ);
 		$db = null;
-		echo json_encode($r);
+		echo json_encode($usuario);
 	} catch(PDOException $e) {
 		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
 	}

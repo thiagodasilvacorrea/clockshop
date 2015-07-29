@@ -1,22 +1,21 @@
-<html ng-app>
+<!DOCTYPE html>
+<html>
 <head>
   <meta charset='utf-8'>
   <title>Clockshop</title>
   <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
-
-
-<body ng-app = "App">
+  <link href="style/style.css" rel="stylesheet" type="text/css">
+<body ng-app ="App">
 
 <div class="container">
-  <div ng-view></div>
-  
-   <div ng-include="'main.php'"></div>
+  <div >
+    <ng-view> </ng-view>
+  </div>
 </div>
  
-  <?php include = main.php ?>
 
-  <script type="text/javascript" src= "js/angular-route.js"></script>
-<script type="text/javascript" src= "js/angular.min.js"></script>
+  
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
 <script type="text/javascript" src ="controlers/app.js"></script>
 </body>
 </html>
