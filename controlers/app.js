@@ -55,6 +55,8 @@ function EditCtrl($scope, $http, $location, $routeParams) {
     if (deleteUser) {
       $http.delete('api/usuarios/'+usuario.id);
       $scope.activePath = $location.path('/');
+      
+      
     }
   };
 }

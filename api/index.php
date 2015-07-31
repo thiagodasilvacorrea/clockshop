@@ -13,7 +13,6 @@ $app->put('/usuarios/:id', 'atualizar_usuario');
 
 $app->delete('/usuarios/:id', 'deletar_usaurio');
 
-
 $app->run();
 
 function pegar_usaurio($id)
