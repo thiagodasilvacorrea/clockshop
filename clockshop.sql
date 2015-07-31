@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tempo de Geração: 27/07/2015 às 22:36
+-- Tempo de Geração: 31/07/2015 às 03:05
 -- Versão do servidor: 5.5.43-0ubuntu0.14.04.1
 -- Versão do PHP: 5.5.9-1ubuntu4.9
 
@@ -29,7 +29,7 @@ USE `clockshop`;
 --
 
 CREATE TABLE IF NOT EXISTS `customers` (
-  `customerId` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `customerName` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
   `address` varchar(50) NOT NULL,
@@ -37,8 +37,15 @@ CREATE TABLE IF NOT EXISTS `customers` (
   `state` varchar(50) DEFAULT NULL,
   `postalCode` varchar(15) DEFAULT NULL,
   `password` varchar(11) NOT NULL,
-  PRIMARY KEY (`customerId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Fazendo dump de dados para tabela `customers`
+--
+
+INSERT INTO `customers` (`id`, `customerName`, `email`, `address`, `city`, `state`, `postalCode`, `password`) VALUES
+(1, 'a', 'b', 'c', 'd', 'f', '1', '2');
 
 -- --------------------------------------------------------
 
