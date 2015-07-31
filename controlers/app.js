@@ -37,13 +37,13 @@ function EditCtrl($scope, $http, $location, $routeParams) {
   var id = $routeParams.id;
   $scope.activePath = null;
 
-  $http.get('api/usuario/'+id).success(function(dados) {
-    $scope.usuario = dados;
+  $http.get('api/usuarios/'+id).success(function(dados) {
+    $scope.usuarios = dados;
   });
 
   $scope.update = function(usuario){
-    $http.put('api/usuario/'+id, usuario).success(function(dados) {
-      $scope.usuario = dados;
+    $http.put('api/usuarios/'+id, usuario).success(function(dados) {
+      $scope.usuarios = dados;
       $scope.activePath = $location.path('/');
     });
   };
@@ -53,7 +53,7 @@ function EditCtrl($scope, $http, $location, $routeParams) {
 
     var deleteUser = confirm('Deseja Realmente Deletar?');
     if (deleteUser) {
-      $http.delete('usuario/'+usuario.id);
+      $http.delete('api/usuarios/'+usuario.id);
       $scope.activePath = $location.path('/');
     }
   };

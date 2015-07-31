@@ -1,24 +1,24 @@
 <?php
-require_once("./config.php");
+
+
 require 'Slim/Slim.php';
-\Slim\Slim::registerAutoloader();
 
-$slim_app = new \Slim\Slim();
+$app = new Slim();
 
-$slim_app->get('/usuario/:id','pegar_usaurio');
+$app->get('/usuarios/:id','pegar_usaurio');
 
 $app->post('/adicionar_usuario', 'adicionar_usuario');
 
-$app->put('/usuario/:id', 'atualizar_usuario');
+$app->put('/usuarios/:id', 'atualizar_usuario');
 
-$app->delete('/usuario/:id', 'deletar_usaurio');
+$app->delete('/usuarios/:id', 'deletar_usaurio');
 
 
-$slim_app->run();
+$app->run();
 
 function pegar_usaurio($id)
 {
- $query = "select * from customers where customerId =$id ORDER by  id";
+ $query = "select * from customers where id =$id";
  
  try {
 		$db = getConnection();
@@ -46,15 +46,16 @@ function adicionar_usuario()
 	 
  try {
 		$db = getConnection();
-		$stmt = $db->query($query);  
-		$stmt->bindParam(":customerName",$usuario->customerName);
-		$stmt->bindParam(":email",$usuario->email);
-		$stmt->bindParam(":address",$usuario->address);
-		$stmt->bindParam(":city",$usuario->city);
-		$stmt->bindParam(":state",$usuario->state);
-		$stmt->bindParam(":postalCode",$usuario->postalCode);
-		$stmt->bindParam(":password",$usuario->password);
-		$usuario->customerId = $db->lastInsertId();
+		$stmt = $db->prepare($query);  
+		$stmt->bindParam(':customerName',$usuario->customerName);
+		$stmt->bindParam(':email',$usuario->email);
+		$stmt->bindParam(':address',$usuario->address);
+		$stmt->bindParam(':city',$usuario->city);
+		$stmt->bindParam(':state',$usuario->state);
+		$stmt->bindParam(':postalCode',$usuario->postalCode);
+		$stmt->bindParam(':password',$usuario->password);
+	    $stmt->execute();
+		$usuario->id = $db->lastInsertId();
 		$db = null;
 		echo json_encode($usuario);
 	} catch(PDOException $e) {
@@ -70,40 +71,61 @@ function atualizar_usuario ($id)
 {
    	$request = Slim::getInstance()->request();
    	
-	 $query = "update customers set customerName = :customerName , email = :email , address = :address, city = :city,state = :state,postalCode = :postalCode where customerId = :id";
+	 $query = "update customers set customerName = :customerName , email = :email , address = :address, city = :city,state = :state,postalCode = :postalCode where id = :id";
 	 
 	 $usuario = json_decode($request->getBody());
  try {
 		$db = getConnection();
+		
 		$stmt = $db->query($query);  
-		$stmt->bindParam(":customerName",$usuario->customerName);
-		$stmt->bindParam(":email",$usuario->email);
-		$stmt->bindParam(":address",$usuario->address);
-		$stmt->bindParam(":city",$usuario->city);
-		$stmt->bindParam(":state",$usuario->state);
-		$stmt->bindParam(":postalCode",$usuario->postalCode);
-		$stmt->bindParam(":password",$usuario->password);
-	    $stmt->bindParam(":customerId",$id);
+		$stmt->bindParam(':customerName',$usuario->customerName);
+		$stmt->bindParam(':email',$usuario->email);
+		$stmt->bindParam(':address',$usuario->address);
+		$stmt->bindParam(':city',$usuario->city);
+		$stmt->bindParam(':state',$usuario->state);
+		$stmt->bindParam(':postalCode',$usuario->postalCode);
+		$stmt->bindParam(':password',$usuario->password);
+	    $stmt->bindParam(':id',$id);
+	    $stmt->execute();
 		$db = null;
 		echo json_encode($usuario);
+		
 	} catch(PDOException $e) {
 		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
 	}
 }
+
 
 function deletar_usaurio ($id)
 {
   
-  $query = "delete from customers where customerId = :id";
+  $query = "delete from customers where id = :id";
  
  try {
 		$db = getConnection();
 		$stmt = $db->query($query);  
-		$r= $stmt->fetchAll(PDO::FETCH_OBJ);
+		$usuario= $stmt->fetchAll(PDO::FETCH_OBJ);
 		$db = null;
 		echo json_encode($usuario);
+		
 	} catch(PDOException $e) {
-		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
-	}
+	   echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+	
 
 }
+
+}
+	function getConnection() 
+	{
+		
+	$dbhost="127.0.0.1";
+	$dbuser="root";
+	$dbpass="";
+	$dbname="clockshop";
+	
+	$dbh = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $dbpass);	
+	$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	return $dbh;
+    }
+
+?>
